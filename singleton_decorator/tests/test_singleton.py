@@ -2,9 +2,9 @@ from unittest import TestCase, mock
 
 from .. import decorator
 
+
 class TestSingletonWrapper(TestCase):
     """Tests for the _SingletonWrapper class"""
-
     def setUp(self):
         """
         Creates a mock object for passing into methods
@@ -82,6 +82,7 @@ class TestSingleton(TestCase):
 
 # create two test classes decorated with the singleton
 
+
 @decorator.singleton
 class Foo:
     """A test class decorated with singleton"""
@@ -90,15 +91,29 @@ class Foo:
 @decorator.singleton
 class Bar:
     """A test class decorated with singleton"""
-
     def __init__(self, arg, kwarg):
         self.arg = arg
         self.kwarg = kwarg
 
 
+@decorator.singleton
+class BarWithKey:
+    """A test class decorated with singleton"""
+    def __init__(self, weight, width, height):
+        self.weight = weight
+        self.width = width
+        self.height = height
+
+    @property
+    def key(self):
+        """
+        docstring
+        """
+        return (self.weight, self.width, self.height)
+
+
 class TestSingletonIntegration(TestCase):
     """Tests the singleton decorator in work"""
-
     def test_create_two_objects_from_same_class(self):
         """
         Checks whether an instantiation of decorated class
@@ -124,6 +139,20 @@ class TestSingletonIntegration(TestCase):
         # check whether its attributes are the same
         self.assertEqual(bar2.arg, 1)
         self.assertEqual(bar2.kwarg, "foo")
+
+    def test_create_two_objects_from_same_class_diff_keys_args(self):
+        """
+        Checks whether an instantiation of decorated class
+        returns the same object each time and its attributes
+        does not change
+        """
+        # create an object
+        bar1 = BarWithKey(1, 2, 3)
+        # check whether the object has attributes arg=1 kwarg=foo
+        self.assertEqual(bar1.key, (1, 2, 3))
+
+        bar2 = BarWithKey(1, 2, 4)
+        self.assertEqual(bar2.key, (1, 2, 4))
 
     def test_two_objects_from_different_classes(self):
         """
