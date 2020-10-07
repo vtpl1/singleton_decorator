@@ -154,6 +154,10 @@ class TestSingletonIntegration(TestCase):
         bar2 = BarWithKey(1, 2, 4)
         self.assertEqual(bar2.key, (1, 2, 4))
 
+        bar3 = BarWithKey(1, 2, 3)
+        self.assertEqual(bar3.key, (1, 2, 3))
+        self.assertEqual(bar1, bar3)
+
     def test_two_objects_from_different_classes(self):
         """
         Checks whether an instantiations of different decorated classes
