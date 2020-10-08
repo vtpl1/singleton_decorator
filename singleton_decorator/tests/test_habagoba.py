@@ -14,7 +14,6 @@ class Bar(object):
 
 
 def get_key(*args, **kwargs) -> Tuple:
-    print("SUBHASIS:", args, kwargs)
     if len(args):
         l = []
         for item in args:
