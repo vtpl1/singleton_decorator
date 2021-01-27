@@ -63,7 +63,7 @@ class TestSingleton(TestCase):
     """Tests for the singleton decorator"""
 
     # patch the wrapper class
-    @mock.patch.object(decorator, '_SingletonWrapper')
+    @mock.patch.object(decorator, "_SingletonWrapper")
     def test_singleton(self, wrapper):
         """
         Checks whether the singleton decorator returns a wrapper object

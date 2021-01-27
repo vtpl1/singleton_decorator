@@ -54,8 +54,8 @@ class TestSingletonWrapper(TestCase):
         x2 = get_key(weight=1, width=2, height=3)
         x3 = get_key(self.t)
         x3_1 = get_key(obj=self.t)
-        x4 = get_key("000", 0., "opn", [1, 2])
-        x5 = get_key("000", 0., "opn", [1, 2], self.t)
+        x4 = get_key("000", 0.0, "opn", [1, 2])
+        x5 = get_key("000", 0.0, "opn", [1, 2], self.t)
 
         self.assertEqual(x1, x2)
         self.assertNotEqual(x1, x6)

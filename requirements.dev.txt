@@ -1,0 +1,6 @@
+flake8
+pylint
+pytest
+coverage
+coveralls
+bump2version
