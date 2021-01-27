@@ -15,6 +15,7 @@ class _SingletonWrapper:
         # print("*******", a)
         if 'key' in a:
             print('++++++++++++++++ key found {} {}'.format(cls, type(a)))
+            print("Subhasis")
             with __lock:
                 self._instance_dict = {}
                 self._is_instance_dict = True
