@@ -12,7 +12,7 @@ class _SingletonWrapper:
             self._instance_dict = None
             self._is_instance_dict = False
         a = dir(cls)
-        # print("*******", a)
+        print("*******", a)
         if 'key' in a:
             print('++++++++++++++++ key found {} {}'.format(cls, type(a)))
             print("Subhasis")
