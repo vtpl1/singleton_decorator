@@ -11,7 +11,7 @@ class _SingletonWrapper:
         a = dir(cls)
         # print("*******", a)
         if 'key' in a:
-            # print('++++++++++++++++ key found {} {}'.format(cls, type(a)))
+            print('++++++++++++++++ key found {} {}'.format(cls, type(a)))
             self._instance_dict = {}
             self._is_instance_dict = True
 
