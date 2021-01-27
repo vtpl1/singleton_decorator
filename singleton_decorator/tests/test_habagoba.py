@@ -64,3 +64,9 @@ class TestSingletonWrapper(TestCase):
         self.assertNotEqual(x1, x4)
         self.assertNotEqual(x1, x5)
         print(x1, x2, x3, x3_1, x4, x5)
+
+    def test_threaded_habagoba(self):
+        self.arr = {}
+        
+        pass
+
