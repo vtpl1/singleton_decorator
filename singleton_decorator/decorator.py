@@ -18,13 +18,12 @@ class _SingletonWrapper:
         self._is_instance_dict = False
         a = dir(cls)
         # LOGGER.info(f"++++++++++++++ SingletonWrapper init called {a}")
-        with _SingletonWrapper.lock:
-            if "key" in a:
-                # LOGGER.info(
-                #     f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
-                # )
-                self._instance_dict = {}
-                self._is_instance_dict = True
+        if "key" in a:
+            # LOGGER.info(
+            #     f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
+            # )
+            self._instance_dict = {}
+            self._is_instance_dict = True
 
     def __call__(self, *args, **kwargs):
         """Returns a single instance of decorated class"""
@@ -34,14 +33,14 @@ class _SingletonWrapper:
                 key = temp.key
                 if key in self._instance_dict:
                     temp = self._instance_dict[key]
-                    LOGGER.info(
-                        f"++++++++++++++ SingletonWrapper returning existing instance {key}"
-                    )
+                    # LOGGER.info(
+                    #     f"++++++++++++++ SingletonWrapper returning existing instance {key}"
+                    # )
                 else:
                     self._instance_dict[key] = temp
-                    LOGGER.info(
-                        f"++++++++++++++ SingletonWrapper returning new instance {key}"
-                    )
+                    # LOGGER.info(
+                    #     f"++++++++++++++ SingletonWrapper returning new instance {key}"
+                    # )
                 return temp
             else:
                 if self._instance is None:
