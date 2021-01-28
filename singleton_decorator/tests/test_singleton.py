@@ -95,6 +95,19 @@ class Bar:
         self.arg = arg
         self.kwarg = kwarg
 
+@decorator.singleton
+class Bar2:
+    """A test class decorated with singleton"""
+    def __init__(self, arg, kwarg):
+        self.arg = arg
+        self.kwarg = kwarg
+
+@decorator.singleton
+class Bar1:
+    """A test class decorated with singleton"""
+    def __init__(self, arg, kwarg):
+        self.arg = arg
+        self.kwarg = kwarg
 
 @decorator.singleton
 class BarWithKey:
@@ -103,6 +116,23 @@ class BarWithKey:
         self.weight = weight
         self.width = width
         self.height = height
+
+    @property
+    def key(self):
+        """
+        docstring
+        """
+        return (self.weight, self.width, self.height)
+
+
+@decorator.singleton
+class BarInBarWithKey:
+    """A test class decorated with singleton"""
+    def __init__(self, weight, width, height):
+        self.weight = weight
+        self.width = width
+        self.height = height
+        self.bar1 = Bar1(self.weight, self.width)
 
     @property
     def key(self):
@@ -165,7 +195,7 @@ class TestSingletonIntegration(TestCase):
         """
         # create two objects from different decorated classes
         foo = Foo()
-        bar = Bar(1, kwarg="bar")
+        bar = Bar2(1, kwarg="bar")
         # check whether the objects are different
         self.assertNotEqual(foo, bar)
 
@@ -178,3 +208,7 @@ class TestSingletonIntegration(TestCase):
         # check whether the __wrapped__ attribute contains
         # a class of the foo object
         self.assertEqual(Foo.__wrapped__, foo.__class__)
+
+    def test_bar_inbar(self):
+        x = BarInBarWithKey(1, 2, 3)
+        self.assertEqual(x.bar1, Bar1(1, 2))

@@ -9,7 +9,7 @@ class _SingletonWrapper:
     A singleton wrapper class. Its instances would be created
     for each decorated class.
     """
-    lock = threading.Lock()
+    lock = threading.RLock()
 
     def __init__(self, cls):
         self.__wrapped__ = cls
@@ -17,17 +17,20 @@ class _SingletonWrapper:
         self._instance_dict = None
         self._is_instance_dict = False
         a = dir(cls)
-        # LOGGER.info(f"++++++++++++++ SingletonWrapper init called {a}")
-        if "key" in a:
-            # LOGGER.info(
-            #     f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
-            # )
-            self._instance_dict = {}
-            self._is_instance_dict = True
+        with _SingletonWrapper.lock:
+            # print(f"in __init__ {id(_SingletonWrapper.lock)}")
+            # LOGGER.info(f"++++++++++++++ SingletonWrapper init called {a}")
+            if "key" in a:
+                # LOGGER.info(
+                #     f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
+                # )
+                self._instance_dict = {}
+                self._is_instance_dict = True
 
     def __call__(self, *args, **kwargs):
         """Returns a single instance of decorated class"""
         with _SingletonWrapper.lock:
+            # print(f"in __call__ {id(_SingletonWrapper.lock)}")
             if self._is_instance_dict is True:
                 temp = self.__wrapped__(*args, **kwargs)
                 key = temp.key
