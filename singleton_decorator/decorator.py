@@ -17,12 +17,12 @@ class _SingletonWrapper:
         self._instance_dict = None
         self._is_instance_dict = False
         a = dir(cls)
-        LOGGER.info(f"++++++++++++++ SingletonWrapper init called {a}")
+        # LOGGER.info(f"++++++++++++++ SingletonWrapper init called {a}")
         with _SingletonWrapper.lock:
             if "key" in a:
-                LOGGER.info(
-                    f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
-                )
+                # LOGGER.info(
+                #     f"++++++++++++++ SingletonWrapper key found {cls} {type(a)}"
+                # )
                 self._instance_dict = {}
                 self._is_instance_dict = True
 
@@ -35,12 +35,12 @@ class _SingletonWrapper:
                 if key in self._instance_dict:
                     temp = self._instance_dict[key]
                     LOGGER.info(
-                        f"++++++++++++++ SingletonWrapper returning existing instance"
+                        f"++++++++++++++ SingletonWrapper returning existing instance {key}"
                     )
                 else:
                     self._instance_dict[key] = temp
                     LOGGER.info(
-                        f"++++++++++++++ SingletonWrapper returning new instance"
+                        f"++++++++++++++ SingletonWrapper returning new instance {key}"
                     )
                 return temp
             else:
