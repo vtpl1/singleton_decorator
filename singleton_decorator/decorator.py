@@ -1,6 +1,6 @@
 import threading
 import logging
-
+from functools import wraps
 LOGGER = logging.getLogger("root")
 
 
@@ -28,11 +28,16 @@ class _SingletonWrapper:
         with self.__lock:
             # print(f"in __call__ {id(self.__lock), {self.__wrapped__}}")
             if self._is_instance_dict == True:
-                temp = self.__wrapped__(*args, **kwargs)
-                key = temp.key
-                if key in self._instance_dict:
+                l = []
+                for arg in args:
+                    l.append(arg)
+                for kwarg in kwargs:
+                    l.append(kwarg)
+                key = tuple(l)
+                if key in self._instance_dict.keys():
                     temp = self._instance_dict[key]
                 else:
+                    temp = self.__wrapped__(*args, **kwargs)
                     self._instance_dict[key] = temp
                 return temp
             else:

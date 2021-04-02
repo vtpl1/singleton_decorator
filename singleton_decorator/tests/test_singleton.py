@@ -129,6 +129,7 @@ class BarWithKey:
 class BarInBarWithKey:
     """A test class decorated with singleton"""
     def __init__(self, weight, width, height):
+        print("init called for BarInBarWithKey")
         self.weight = weight
         self.width = width
         self.height = height
@@ -140,6 +141,8 @@ class BarInBarWithKey:
         docstring
         """
         return (self.weight, self.width, self.height)
+    def __del__(self):
+        print("delete called for BarInBarWithKey")
 
 
 class TestSingletonIntegration(TestCase):
